@@ -1,0 +1,12 @@
+version: '3.8' # Specify Docker Compose file format version
+services:
+  mysql:
+    image: mysql:8.0 # Use the official MySQL image, specify version
+    container_name: mysql-container # Optional: name the container
+    environment:
+      MYSQL_ROOT_PASSWORD: root # Set the root password
+      MYSQL_USER: user                   # Create a default user
+      MYSQL_PASSWORD: user_password      # Set the password for the default user
+    ports:
+      - "3301:3306" # Map the MySQL port
+    

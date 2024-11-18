@@ -6,6 +6,6 @@ import com.encoder.urlshortner.model.UrlDto;
 public interface UrlShortnerService {
     public Url generateShortUrl(UrlDto urlDto);
     public Url saveShortUrl(Url url);
-    public Url getShortUrl(String url);
+    public Url getUrlFromShortUrl(String url);
     public void deleteShortUrl(Url url);
 }

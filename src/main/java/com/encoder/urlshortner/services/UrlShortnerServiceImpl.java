@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.encoder.urlshortner.model.Url;
 import com.encoder.urlshortner.model.UrlDto;
@@ -12,6 +13,7 @@ import com.google.common.hash.Hashing;
 
 import io.micrometer.common.util.StringUtils;
 
+@Component
 public class UrlShortnerServiceImpl implements UrlShortnerService{
 
     @Autowired
@@ -29,7 +31,7 @@ public class UrlShortnerServiceImpl implements UrlShortnerService{
 
     private LocalDateTime getExpirationDateTime(LocalDateTime creationDateTime,UrlDto urlDto){
         if(urlDto.getExpirationDate()==null || StringUtils.isBlank(urlDto.getExpirationDate())){
-            return creationDateTime.plus(30, null);
+            return creationDateTime.plusSeconds(200);
         }
         else{
             return LocalDateTime.parse(urlDto.getExpirationDate());
@@ -61,8 +63,9 @@ public class UrlShortnerServiceImpl implements UrlShortnerService{
     }
 
     @Override
-    public Url getShortUrl(String url) {
-        return urlRepository.findByShortUrl(url);
+    public Url getUrlFromShortUrl(String shortUrl) {
+
+        return urlRepository.findByShortUrl(shortUrl);
     }
 
     @Override
